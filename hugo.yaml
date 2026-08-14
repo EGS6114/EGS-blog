@@ -33,7 +33,7 @@ baseURL: 'https://egs.cc.cd/'
 locale: 'zh-cn'
 defaultContentLanguage: 'zh'
 title: 'EGS-blog'          # 站点名称（浏览器标题、页脚版权等）
-theme: ''           # 主题目录：themes/aiovtue/
+# theme: ''           # 主题目录：themes/aiovtue/
 hasCJKLanguage: true      # 启用中文分词（搜索、摘要等）
 enableRobotsTXT: true     # 生成 robots.txt（模板在 themes/aiovtue/layouts/robots.txt）
 
