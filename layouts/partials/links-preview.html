@@ -1,0 +1,11 @@
+{{ $layout := default "preview" site.Params.links.layout }}
+{{ $data := .Site.Data.links }}
+<div class="links-preview">
+  {{ range $data.linkGroups }}
+  {{- partial "links-preview-group.html" (dict
+  "Group" .
+  "PageLayout" $layout
+  "ShuffleDefault" false
+  ) -}}
+  {{ end }}
+</div>

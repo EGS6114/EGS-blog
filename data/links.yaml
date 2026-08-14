@@ -1,0 +1,11 @@
+title: 来加入我们叭
+cover: "/hero/sp1.mp4"
+
+# linkGroups：友链分组，可增删组；每组 links 为友链卡片列表
+linkGroups:
+  - name: 友链
+    links:
+      - url: https://example.com/xeu
+        avatar: https://api.dicebear.com/7.x/adventurer/svg?seed=xeu
+        name: 友链出租哦~
+        desc: 有没有心动呢~
