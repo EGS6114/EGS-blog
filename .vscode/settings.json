@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "layouts/**/*.html": "gohtml"
+  },
+  "css.validate": false,
+  "scss.validate": false
+}

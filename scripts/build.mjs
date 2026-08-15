@@ -91,7 +91,6 @@ function runStep(label, command, args, options = {}) {
 
 ensureBuildReady();
 
-runStep("fetch-static", process.execPath, ["scripts/fetch-missing-static.mjs"]);
 runStep("fetch-bangumi", process.execPath, ["scripts/fetch-bangumi.mjs"]);
 
 const hugoBin = resolveHugoBin();

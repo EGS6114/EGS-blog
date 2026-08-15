@@ -2,11 +2,9 @@
   "name": "aiovtue-hugo-blog",
   "private": true,
   "scripts": {
-    "fetch-static": "node scripts/fetch-missing-static.mjs",
-    "dev": "node scripts/fetch-missing-static.mjs && node scripts/fetch-bangumi.mjs && hugo server -D --disableFastRender",
+    "dev": "node scripts/fetch-bangumi.mjs && hugo server -D --disableFastRender",
     "compress-mouse": "node scripts/compress-mouse-assets.mjs",
-    "build": "node scripts/build.mjs",
-    "build:cf": "node scripts/build.mjs"
+    "build": "node scripts/build.mjs"
   },
   "devDependencies": {
     "decode-ico": "^0.4.1",
