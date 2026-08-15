@@ -15,4 +15,4 @@ tocEndLevel: 3
 
 [https://daily.yybb.us/posts/hugo-theme/aiovtue/recommend/](https://daily.yybb.us/posts/hugo-theme/aiovtue/recommend/)
 
-[https://github.com/RGS6114/EGS-blog](https://github.com/RGS6114/EGS-blog)
+[https://github.com/EGS6114/EGS-blog](https://github.com/EGS6114/EGS-blog)

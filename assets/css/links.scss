@@ -87,47 +87,6 @@
   box-sizing: border-box;
 }
 
-/* ===== 分组 ===== */
-.links-preview-group+.links-preview-group {
-  margin-top: 40px;
-}
-
-.links-preview-group {
-  --group-color: var(--sakura-color-primary);
-  --group-grid-gap: 18px 14px;
-}
-
-.links-preview-group__header {
-  margin-bottom: 20px;
-}
-
-.links-preview-group__title {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: 0 0 8px;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--group-color);
-}
-
-.links-preview-group__title-icon {
-  flex-shrink: 0;
-  font-size: 1em;
-  line-height: 1;
-}
-
-.links-preview-group__title-text {
-  min-width: 0;
-}
-
-.links-preview-group__desc {
-  margin: 0;
-  font-size: 0.88rem;
-  line-height: 1.6;
-  color: var(--sakura-color-text-muted);
-}
-
 /* ===== 网格（统一使用 grid） ===== */
 .links-preview-grid {
   display: grid;
@@ -139,12 +98,11 @@
 }
 
 .links-preview-item {
-  /* 网格自动处理宽度，无需额外设置 */
   list-style: none;
 }
 
-/* ===== 垂直卡片（用于 preview 布局） ===== */
-.links-preview-group--preview .links-preview-card {
+/* ===== 卡片样式（默认垂直，适用于所有卡片） ===== */
+.links-preview-card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -159,16 +117,16 @@
   height: 100%;
 }
 
-.links-preview-group--preview .links-preview-card:hover {
+.links-preview-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-.links-preview-group--preview .links-preview-card:hover .links-preview-name {
+.links-preview-card:hover .links-preview-name {
   color: var(--link-color, var(--sakura-color-primary));
 }
 
-.links-preview-group--preview .links-preview-avatar {
+.links-preview-avatar {
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -178,12 +136,12 @@
   background: var(--sakura-color-background);
 }
 
-.links-preview-group--preview .links-preview-text {
+.links-preview-text {
   text-align: center;
   width: 100%;
 }
 
-.links-preview-group--preview .links-preview-name {
+.links-preview-name {
   font-size: 1.1rem;
   font-weight: 600;
   line-height: 1.3;
@@ -194,7 +152,7 @@
   white-space: nowrap;
 }
 
-.links-preview-group--preview .links-preview-desc {
+.links-preview-desc {
   font-size: 0.9rem;
   color: var(--sakura-color-text-muted);
   margin-top: 4px;
@@ -203,89 +161,57 @@
   white-space: nowrap;
 }
 
-/* ===== 水平卡片（用于 simple 布局） ===== */
-.links-preview-group--simple .links-preview-card {
-  display: flex;
+/* ===== 水平卡片（可选，通过额外类启用） ===== */
+.links-preview-card--horizontal {
+  flex-direction: row;
   align-items: center;
   gap: 12px;
   padding: 12px 14px;
-  border-radius: 12px;
   border: 1px solid color-mix(in srgb, var(--link-color, #0078e7) 22%, transparent);
-  background: var(--sakura-post-card-bg, #fff);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-  transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
-  color: inherit;
-  text-decoration: none;
 }
 
-.links-preview-group--simple .links-preview-card:hover {
+.links-preview-card--horizontal .links-preview-avatar {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.links-preview-card--horizontal .links-preview-text {
+  text-align: left;
+}
+
+.links-preview-card--horizontal .links-preview-name {
+  font-size: 0.9rem;
+}
+
+.links-preview-card--horizontal .links-preview-desc {
+  font-size: 0.8rem;
+}
+
+.links-preview-card--horizontal:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
   border-color: color-mix(in srgb, var(--link-color, #0078e7) 42%, transparent);
 }
 
-.links-preview-group--simple .links-preview-card:hover .links-preview-name {
-  color: var(--link-color, var(--sakura-color-primary));
-}
-
-.links-preview-group--simple .links-preview-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  object-fit: cover;
-  border: 2px solid var(--link-color, var(--sakura-color-primary));
-  background: var(--sakura-color-background);
-}
-
-.links-preview-group--simple .links-preview-text {
-  flex: 1;
-  min-width: 0;
-}
-
-.links-preview-group--simple .links-preview-name {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--sakura-color-text-deep);
-  transition: color 0.2s;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.links-preview-group--simple .links-preview-desc {
-  font-size: 0.8rem;
-  color: var(--sakura-color-text-muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 /* ===== 暗色主题适配 ===== */
-html.dark {
-  .links-preview-group--preview .links-preview-card {
-    background: var(--sakura-post-card-bg, #1e1e24);
-    border-color: #2a2a32;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
+html.dark .links-preview-card {
+  background: var(--sakura-post-card-bg, #1e1e24);
+  border-color: #2a2a32;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
 
-  .links-preview-group--preview .links-preview-card:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  }
+html.dark .links-preview-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
 
-  .links-preview-group--simple .links-preview-card {
-    background: var(--sakura-post-card-bg, #1e1e24);
-    border-color: color-mix(in srgb, var(--link-color, #0078e7) 14%, #333);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-  }
+html.dark .links-preview-card--horizontal {
+  border-color: color-mix(in srgb, var(--link-color, #0078e7) 14%, #333);
+}
 
-  .links-preview-group--simple .links-preview-card:hover {
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
-  }
-
-  .links-preview-name {
-    color: var(--sakura-color-text);
-  }
+html.dark .links-preview-name {
+  color: var(--sakura-color-text);
 }
 
 /* ===== 移动端响应 ===== */
@@ -295,26 +221,21 @@ html.dark {
     gap: 12px;
   }
 
-  .links-preview-group--preview .links-preview-avatar {
+  .links-preview-avatar {
     width: 60px;
     height: 60px;
   }
 
-  .links-preview-group--preview .links-preview-name {
+  .links-preview-name {
     font-size: 0.9rem;
   }
 
-  .links-preview-group--preview .links-preview-desc {
+  .links-preview-desc {
     font-size: 0.75rem;
   }
 
-  .links-preview-group--simple .links-preview-grid {
+  .links-preview-card--horizontal .links-preview-grid {
     grid-template-columns: 1fr;
-  }
-
-  /* 移除所有原先依赖截图或绝对定位的样式 */
-  .links-preview-group--preview .links-preview-card {
-    padding: 0.8rem 0.4rem;
   }
 }
 
@@ -581,14 +502,6 @@ html.dark .friend-link-highlight {
   color: #ffe8f0;
 }
 
-/* ===== 全局暗色兼容（保留原有部分） ===== */
-html.dark .links-preview-name {
-  color: var(--sakura-color-text);
-}
-
-/* ===== hero-style-grid 兼容 ===== */
-html.hero-style-grid {
-  .sakura-links-page .sakura-page-content {
-    background: transparent;
-  }
+html.hero-style-grid .sakura-links-page .sakura-page-content {
+  background: transparent;
 }

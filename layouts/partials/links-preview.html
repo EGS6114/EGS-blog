@@ -1,11 +1,20 @@
-{{ $layout := default "preview" site.Params.links.layout }}
-{{ $data := .Site.Data.links }}
+{{ $friends := .Site.Data.friends }}
 <div class="links-preview">
-  {{ range $data.linkGroups }}
-  {{- partial "links-preview-group.html" (dict
-  "Group" .
-  "PageLayout" $layout
-  "ShuffleDefault" false
-  ) -}}
+  {{ if $friends }}
+  <ul class="links-preview-grid">
+    {{ range $friends }}
+    <li class="links-preview-item">
+      <a class="links-preview-card" href="{{ .url }}" target="_blank" rel="noopener">
+        <img class="links-preview-avatar" src="{{ .avatar }}" alt="{{ .name }}" loading="lazy">
+        <div class="links-preview-text">
+          <div class="links-preview-name">{{ .name }}</div>
+          <div class="links-preview-desc">{{ .description }}</div>
+        </div>
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+  {{ else }}
+  <p>暂无友链，欢迎通过 Issue 申请添加。</p>
   {{ end }}
 </div>
