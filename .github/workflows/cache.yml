@@ -16,7 +16,7 @@ jobs:
 
       - name: 提取 sitemap
         run: |
-          curl -s -m 30 https://upxuu.com/sitemap.xml \
+          curl -s -m 30 https://blog.egs.cc.cd/sitemap.xml \
             | grep -oP '(?<=<loc>)[^<]+' \
             | sed 's/\r$//' > urls.txt
           echo "共提取 $(wc -l < urls.txt) 个页面"
