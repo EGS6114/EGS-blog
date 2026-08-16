@@ -30,12 +30,75 @@
       ]
     },
     {
-      "source": "/(.*\\.(css|js|jpg|jpeg|png|gif|svg|ico|webp|woff2|ttf|eot))",
+      "source": "/**/*.css",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0,  must-revalidate=432000, immutable"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=432000, immutable" }
+      ]
+    },
+    {
+      "source": "/**/*.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=432000, immutable" }
+      ]
+    },
+    {
+      "source": "/**/*.jpg",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=432000, immutable" }
+      ]
+    },
+    {
+      "source": "/**/*.jpeg",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=432000, immutable" }
+      ]
+    },
+    {
+      "source": "/**/*.png",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=432000, immutable" }
+      ]
+    },
+    {
+      "source": "/**/*.gif",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=432000, immutable" }
+      ]
+    },
+    {
+      "source": "/**/*.svg",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=432000, immutable" }
+      ]
+    },
+    {
+      "source": "/**/*.ico",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=432000, immutable" }
+      ]
+    },
+    {
+      "source": "/**/*.webp",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=432000, immutable" }
+      ]
+    },
+    {
+      "source": "/**/*.woff2",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=432000, immutable" }
+      ]
+    },
+    {
+      "source": "/**/*.ttf",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=432000, immutable" }
+      ]
+    },
+    {
+      "source": "/**/*.eot",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=432000, immutable" }
       ]
     }
   ]
