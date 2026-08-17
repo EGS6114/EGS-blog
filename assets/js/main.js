@@ -40,6 +40,7 @@ import { initEnvelope, initEnvelopeDanmaku } from './envelope.js'
 import { initWeeklyLoadMore, bootstrapWeeklyLoadMore } from './weekly.js'
 import { cancelTypeWriter } from './typewriter.js'
 import { bootSignatureWidget } from './signature-boot.js'
+import { scheduleLive2dInit } from './live2d-widget.js'
 
 function unmountPage() {
   runPageCleanups()
@@ -100,6 +101,7 @@ function mountPage() {
   initEnvelopeDanmaku()
   void bootSignatureWidget().catch((err) => console.warn('[signature]', err))
   bindCopyYmlBtn()
+  scheduleLive2dInit()
   refreshHomeNavbar?.()
   refreshMobileNavbarCollapse?.()
   refreshDesktopNavbarCollapse?.()
@@ -113,4 +115,5 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', () => {
   bootstrapHomeCardsLoadMore()
   bootstrapWeeklyLoadMore()
+  scheduleLive2dInit()
 }, { once: true })

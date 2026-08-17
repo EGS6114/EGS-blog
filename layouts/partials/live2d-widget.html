@@ -7,12 +7,16 @@
   {{- $cdnPath = $widget -}}
 {{- end -}}
 {{- $tools := $live2d.tools | default (slice "hitokoto" "asteroids" "switch-model" "switch-texture" "photo" "info" "quit") -}}
+
+{{- $localWaifuCss := $live2d.localWaifuCss | default "" -}}
+{{- $localWaifuTipsJson := $live2d.localWaifuTipsJson | default "" -}}
+
 <div
   id="sakura-live2d"
   class="sakura-live2d"
   hidden
   aria-hidden="true"
-  data-min-width="{{ default 768 $live2d.minWidth }}"
+  data-min-width="{{ default 750 $live2d.minWidth }}"
   data-widget="{{ $widget }}"
   {{- with $cdnPath -}}
   {{- if not $apiPath -}}
@@ -25,6 +29,14 @@
   data-waifu-tips="{{ default `jsdelivr/sequential/waifu-tips.js` $live2d.waifuTips }}"
   data-waifu-css="{{ default `css/left.css` $live2d.waifuCss }}"
   data-waifu-path="{{ default `waifu-tips.json` $live2d.waifuTipsJson }}"
+
+  {{- with $localWaifuCss -}}
+  data-local-waifu-css="{{ . }}"
+  {{- end -}}
+  {{- with $localWaifuTipsJson -}}
+  data-local-waifu-tips-json="{{ . }}"
+  {{- end -}}
+
   {{- if $live2d.drag -}}
   data-drag="true"
   {{- end -}}

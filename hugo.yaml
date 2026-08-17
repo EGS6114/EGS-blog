@@ -406,16 +406,20 @@ params:
   # --- Live2D 看板娘（左下角 Live2D 角色）---
   # enable：是否启用；单页可在 front matter 写 live2d: false 关闭
   live2d:
-    enable: false
+    enable: true
     minWidth: 750                                # 低于此宽度不加载
     drag: false
-    tools: ['hitokoto', 'asteroids', 'switch-model', 'switch-texture', 'photo', 'info', 'quit']
+    tools: ['hitokoto', 'switch-model', 'switch-texture', 'photo', 'info', 'quit']
 
     # 看板娘运行时（脚本 / 样式 / 提示语，一般保持默认即可）
     widget: 'https://live2d.kafuchino.top/'
     waifuTips: 'jsdelivr/sequential/waifu-tips.js'
     waifuCss: 'css/left.css'
     waifuTipsJson: 'waifu-tips.json'
+
+    localWaifuCss: '/live2d/css/waifu.css'
+    localWaifuTipsJson: '/live2d/waifu-tips.json'
+ 
 
     # 模型库 cdnPath（静态模型目录，含 model_list.json）— 与 apiPath 二选一
     cdnPath: 'https://live2d.kafuchino.top/'     # nova1751 扩展库：少女前线等（21 组模型）

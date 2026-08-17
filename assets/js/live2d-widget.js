@@ -54,11 +54,30 @@ async function bootLive2d(root) {
   const cssPath = root.dataset.waifuCss || 'css/left.css'
   const waifuTipsJson = root.dataset.waifuPath || 'waifu-tips.json'
 
+  const localWaifuCss = root.dataset.localWaifuCss || ''
+  const localWaifuTipsJson = root.dataset.localWaifuTipsJson || ''
+
+  const cssUrl = localWaifuCss || `${widget}${cssPath}`
+  const tipsJsonUrl = localWaifuTipsJson || `${widget}${waifuTipsJson}`
+
+  const jsLoads = [
+    loadExternalResource(`${widget}live2d.min.js`, 'js'),
+    loadExternalResource(`${widget}${tipsPath}`, 'js'),
+  ]
+  if (!localWaifuCss) jsLoads.push(loadExternalResource(`${widget}${cssPath}`, 'css'))
+ 
+  await Promise.all(jsLoads)
+
   await Promise.all([
     loadExternalResource(`${widget}${cssPath}`, 'css'),
     loadExternalResource(`${widget}live2d.min.js`, 'js'),
     loadExternalResource(`${widget}${tipsPath}`, 'js'),
   ])
+
+  const localCss = root.dataset.localWaifuCss
+  if (localCss) {
+    await loadExternalResource(localCss, 'css')
+  }
 
   if (typeof window.initWidget !== 'function') {
     throw new Error('initWidget is not available')
@@ -66,7 +85,7 @@ async function bootLive2d(root) {
 
   const tools = readJsonScript('sakura-live2d-tools', [])
   const config = {
-    waifuPath: `${widget}${waifuTipsJson}`,
+    waifuPath: tipsJsonUrl,
   }
 
   if (apiPath) {
@@ -77,6 +96,10 @@ async function bootLive2d(root) {
 
   if (Array.isArray(tools) && tools.length) config.tools = tools
   if (root.dataset.drag === 'true') config.drag = true
+
+  window.initWidget(config)
+  root.dataset.loaded = 'true'
+  root.dataset.modelSource = apiPath || cdnPath
 
   window.initWidget(config)
   root.dataset.loaded = 'true'
