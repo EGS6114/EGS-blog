@@ -33,14 +33,12 @@ import {
 import { customizeTwikooCommentForm, observeTwikooCommentForm, cleanupTwikooFormObserver } from './twikoo-form.js'
 import { initLightbox, initAlbumVideoThumbs, cleanupLightbox } from './lightbox.js'
 import { initCharts, cleanupCharts } from './charts.js'
-import { initMomentsModule, initExcalidrawModule, initGalleryPostModule } from './lazy-modules.js'
+import { initMomentsModule, initGalleryPostModule } from './lazy-modules.js'
 import { isPjaxContentMounting } from './page-nav.js'
 import { initSearchPage } from './search-page.js'
-import { initEnvelope, initEnvelopeDanmaku } from './envelope.js'
 import { initWeeklyLoadMore, bootstrapWeeklyLoadMore } from './weekly.js'
 import { cancelTypeWriter } from './typewriter.js'
 import { bootSignatureWidget } from './signature-boot.js'
-import { scheduleLive2dInit } from './live2d-widget.js'
 
 function unmountPage() {
   runPageCleanups()
@@ -93,12 +91,9 @@ function mountPage() {
   void initCharts().catch((err) => console.warn('[charts]', err))
   if (!isPjaxContentMounting()) {
     void initMomentsModule().catch((err) => console.warn('[moments]', err))
-    void initExcalidrawModule().catch((err) => console.warn('[excalidraw]', err))
     void initGalleryPostModule().catch((err) => console.warn('[gallery-post]', err))
   }
   void initSearchPage().catch((err) => console.warn('[search]', err))
-  initEnvelope()
-  initEnvelopeDanmaku()
   void bootSignatureWidget().catch((err) => console.warn('[signature]', err))
   bindCopyYmlBtn()
   scheduleLive2dInit()

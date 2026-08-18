@@ -2,7 +2,6 @@
 import { registerPageCleanup } from './page-cleanup.js'
 
 let momentsScriptPromise = null
-let excalidrawScriptPromise = null
 let galleryPostScriptPromise = null
 
 function getMomentsScriptUrl() {
@@ -53,48 +52,6 @@ export async function initMomentsModule() {
   window.__sakuraMountMoments?.(registerPageCleanup)
 }
 
-function getExcalidrawScriptUrl() {
-  return document.querySelector('meta[name="sakura-excalidraw-script"]')?.content || ''
-}
-
-async function loadExcalidrawScript() {
-  if (window.__sakuraMountExcalidraw) return
-  const url = getExcalidrawScriptUrl()
-  if (!url) return
-
-  if (!excalidrawScriptPromise) {
-    excalidrawScriptPromise = new Promise((resolve, reject) => {
-      const existing = document.querySelector(`script[src="${url}"]`)
-      if (existing) {
-        if (window.__sakuraMountExcalidraw) {
-          resolve()
-          return
-        }
-        existing.addEventListener('load', () => resolve(), { once: true })
-        existing.addEventListener('error', () => reject(new Error('excalidraw script failed')), { once: true })
-        return
-      }
-
-      const script = document.createElement('script')
-      script.src = url
-      script.defer = true
-      script.onload = () => resolve()
-      script.onerror = () => reject(new Error('excalidraw script failed'))
-      document.body.appendChild(script)
-    })
-  }
-
-  await excalidrawScriptPromise
-}
-
-export async function initExcalidrawModule() {
-  if (!document.querySelector('.sakura-excalidraw-page')) return
-
-  if (!window.__sakuraMountExcalidraw) {
-    await loadExcalidrawScript()
-  }
-  window.__sakuraMountExcalidraw?.(registerPageCleanup)
-}
 
 function getGalleryPostScriptUrl() {
   return document.querySelector('meta[name="sakura-gallery-post-script"]')?.content || ''
@@ -143,7 +100,6 @@ export async function initGalleryPostModule() {
 export async function awaitPageLazyModules() {
   const tasks = []
   if (document.querySelector('.sakura-moments-page')) tasks.push(initMomentsModule())
-  if (document.querySelector('.sakura-excalidraw-page')) tasks.push(initExcalidrawModule())
   if (document.querySelector('.sakura-gallery-post-page')) tasks.push(initGalleryPostModule())
   if (!tasks.length) return
   await Promise.allSettled(tasks)

@@ -1,4 +1,3 @@
-import { scheduleLive2dInit } from './live2d-widget.js'
 import { scheduleMouseStyleInit } from './tuantuanma-mouse.js'
 import {
   consumeHomePaginationIntent,
@@ -27,16 +26,6 @@ import {
   shouldScrollToPostListForUrl,
 } from './home.js'
 
-function scheduleSiteEffectsInitLazy() {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-  if (!document.getElementById('sakura-site-effects-config')) return
-
-  import('./site-effects.js')
-    .then((mod) => {
-      if (mod.shouldUseSiteEffects()) mod.scheduleSiteEffectsInit()
-    })
-    .catch((err) => console.warn('[site-effects]', err))
-}
 
 function applyTheme(root, isDark) {
   root.classList.toggle('dark', isDark)
@@ -139,9 +128,7 @@ export function bootShell({ mountPage, unmountPage }) {
   initNavbarDropdown()
   initBrandRotate()
   initSearchModal()
-  scheduleLive2dInit()
   scheduleMouseStyleInit()
-  scheduleSiteEffectsInitLazy()
 
   window.addEventListener('sakura:open-lightbox', (event) => {
     const { urls, index } = event.detail || {}

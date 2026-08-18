@@ -15,16 +15,13 @@
 #   params.sponsor     赞助
 #   params.license     版权声明
 #   params.comment     评论 provider
-#   params.waline      Waline（备用）
-#   params.twikoo      Twikoo（当前）
-#   params.envelope    留言页信封
+#   params.waline      Waline
+#   params.twikoo      Twikoo
 #   params.navbar      顶栏
 #   params.search      全文搜索
 #   params.menu.main   导航菜单
 #   params.music       音乐播放器
-#   params.live2d      Live2D 看板娘
-#   params.mouse        团团猫动态鼠标指针
-#   params.effects      全站背景特效（樱花/雨/雪等）
+#   params.mouse       团团猫动态鼠标指针
 #   params.pjax        无刷新跳转
 # =============================================================================
 
@@ -33,7 +30,6 @@ baseURL: 'https://blog.egs.cc.cd/'
 locale: 'zh-cn'
 defaultContentLanguage: 'zh'
 title: 'EGS-blog'          # 站点名称（浏览器标题、页脚版权等）
-# theme: ''           # 主题目录：themes/aiovtue/
 hasCJKLanguage: true      # 启用中文分词（搜索、摘要等）
 enableRobotsTXT: true     # 生成 robots.txt（模板在 themes/aiovtue/layouts/robots.txt）
 
@@ -45,7 +41,7 @@ sitemap:
 
 # --- 分页（首页文章列表）---
 pagination:
-  pagerSize: 6           # 每页文章数
+  pagerSize: 9           # 每页文章数
 
 # --- 分类与标签 URL 路径 ---
 taxonomies:
@@ -82,7 +78,7 @@ markup:
 # --- 资源类型：将 .excalidraw 识别为 JSON page bundle 资源 ---
 mediaTypes:
   application/json:
-    suffixes: ["json", "excalidraw"]
+    suffixes: ["json"]
 
 # =============================================================================
 # 站点参数（主题通过 .Site.Params 读取）
@@ -92,7 +88,7 @@ params:
   description: '分享学习，技术，生活'                  # 站点默认描述（SEO、分享卡片）
   primaryColor: '#DF9193'                     # 主题主色
   favicon: '/hero/avatar.png'
-  defaultCover: '/hero/tt3.png'               # 文章默认头图（无 cover 时使用）
+  defaultCover: '/hero/tt2.png'               # 文章默认头图（无 cover 时使用）
   math: false                                 # 默认关闭；单篇 front matter 写 math: true 启用构建时 KaTeX 渲染
   postIndent: false                            # 文章/关于页正文首行缩进 2em（单篇可写 indent: true 打开）
 
@@ -102,8 +98,6 @@ params:
 
   # --- 友链页 ---
   links:
-    layout: 'preview'                        # preview：卡片截图 | simple：长条头像+悬停预览
-    rssEnable: true                         # 友链页「朋友动态」RSS 展示（关闭时不拉取 RSS）
     footerEnable: false                      # 全站页脚友链列表展示
 
   # --- 动态页（每条动态：content/moments/*.md，front matter 仅需 date）---
@@ -162,18 +156,15 @@ params:
       '/hero/tt3.png',
       '/hero/tt1.png',
       '/hero/tt2.png',
-      '/hero/sp1.mp4',
       '/hero/hero-1.jpg',
       '/hero/hero-2.png',
-      '/hero/hero-1.mp4',
-      '/hero/hero-2.mp4',
     ]
 
   # --- 页脚 ---
   footer:
     since: 2026           # 版权起始年
     runtimeSince: '2026-08-15'   # 站点运行倒计时起点（YYYY-MM-DD）
-    # icp: '<a href="https://icp.gov.moe/?keyword=20260258" target="_blank" rel="noopener">萌ICP备20260258号</a>'
+    # icp: '<a href="https://icp.gov.moe/?keyword=" target="_blank" rel="noopener">萌ICP备 号</a>'
 
   # --- 首页公告栏（右侧域名列表）---
   # --- 首页文章列表布局 ---
@@ -255,9 +246,6 @@ params:
       - name: '微信支付'
         url: '/img/weix.png'
         color: '#2DC100'
-      # - name: '支付宝'
-      #   url: ''
-      #   color: '#00A3EE'
       
   # --- 文章版权声明（CC 协议）---
   license:
@@ -296,17 +284,6 @@ params:
   twikoo:
     envId: 'https://twikoo.egs.cc.cd'
     visitorEnable: true   # 开启文章访问数量统计，基于twikoo
-
-  # --- 留言页信封动画图片（文件在 static/envelope/）---
-  # envelope:
-  #   before: '/envelope/before.png'
-  #   after: '/envelope/after.png'
-  #   cover: '/envelope/cover.png'
-  #   line: '/envelope/line.png'
-  #   wrapHeight: 447
-  #   openHeight: 1050
-  #   openOffset: -200
-  #   danmakuOpenBottomTrim: 140   # 信封展开时弹幕区域底部向上缩短（像素）
 
   # --- 顶栏标题 ---
   navbar:
@@ -403,55 +380,12 @@ params:
     type: 'playlist'                             # playlist | song | album | artist
     id: '2580064383'                             # 网易云歌单/歌曲 ID
 
-  # --- Live2D 看板娘（左下角 Live2D 角色）---
-  # enable：是否启用；单页可在 front matter 写 live2d: false 关闭
-  live2d:
-    enable: true
-    minWidth: 750                                # 低于此宽度不加载
-    drag: false
-    tools: ['hitokoto', 'switch-model', 'switch-texture', 'photo', 'info', 'quit']
-
-    # 看板娘运行时（脚本 / 样式 / 提示语，一般保持默认即可）
-    widget: 'https://live2d.kafuchino.top/'
-    waifuTips: 'jsdelivr/sequential/waifu-tips.js'
-    waifuCss: 'css/left.css'
-    waifuTipsJson: 'waifu-tips.json'
-
-    localWaifuCss: '/live2d/css/waifu.css'
-    localWaifuTipsJson: '/live2d/waifu-tips.json'
- 
-
-    # 模型库 cdnPath（静态模型目录，含 model_list.json）— 与 apiPath 二选一
-    cdnPath: 'https://live2d.kafuchino.top/'     # nova1751 扩展库：少女前线等（21 组模型）
-    # 备用模型库（取消注释一行替换上方 cdnPath 即可切换模型种类）：
-    # cdnPath: 'https://fastly.jsdelivr.net/gh/fghrsh/live2d_api/'   # fghrsh 经典库：Shizuku / 海王星 / Pio 等（7 组）
-    # cdnPath: 'https://cdn.jsdelivr.net/gh/fghrsh/live2d_api/'      # 同上 · jsDelivr 国内节点
-    # cdnPath: 'https://fastly.jsdelivr.net/gh/nova1751/live2d-api/' # nova1751 仓库镜像（模型集与 kafuchino 相同）
-    #
-    # 模型库 apiPath（fghrsh 动态 PHP 接口；启用时需注释掉上方 cdnPath）：
-    # apiPath: 'https://live2d.fghrsh.net/api/'                      # fghrsh 官方动态 API（接口式换模型/皮肤）
-
   # --- 团团猫动态鼠标指针 ---
   # enable：是否启用；单页可在 front matter 写 mouse: false 关闭
   mouse:
     enable: true
     path: '/mouse/tuantuanma/'                  # 预压缩 WebP + manifest.json（见 static/mouse/tuantuanma/）
     scale: 0.25                                  # manifest 内记录的缩放；重新压缩时改 compress-mouse 脚本参数
-
-  # --- 全站背景特效（yzhanWeather · MIT，本地静态资源）---
-  # enable：是否启用；单页可在 front matter 写 effects: false 关闭
-  # type：sakura | rain | snow | firefly | butterfly | random（每次打开随机一种）
-  # mobile：触摸设备或宽度 ≤768px 是否启用（默认 false）
-  # randomize：打散雨/樱花/雪/蝴蝶轨迹；萤火虫不受此项影响，始终仅向上飘
-  effects:
-    enable: true
-    type: 'firefly'
-    randomTypes: ['sakura', 'rain', 'snow', 'firefly', 'butterfly']
-    randomize: true                                # 打散位置/速度/轨迹，避免过于规律
-    mobile: false                                  # 移动端是否启用（默认关闭）
-    maxDuration: 10                                # 动画基准周期（秒），越大越慢
-    zIndex: 5                                      # 层级，需低于弹窗/导航
-    script: '/vendor/yzhanweather/yzhanweather.min.js'
 
   # --- 站内无刷新跳转（PJAX）---
   pjax:

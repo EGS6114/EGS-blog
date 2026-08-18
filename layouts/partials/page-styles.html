@@ -20,12 +20,6 @@
 
 {{- end -}}
 
-{{- if eq .Section "excalidraw" -}}
-
-  {{- partial "stylesheet.html" (dict "name" "css/excalidraw.scss" "key" "excalidraw") -}}
-
-{{- end -}}
-
 {{- if and .IsPage (eq .Layout "gallery-post") -}}
 
   {{- partial "stylesheet.html" (dict "name" "css/post-gallery.scss" "key" "gallery-post") -}}
@@ -65,18 +59,6 @@
 {{- if partial "music-enabled.html" . -}}
 
   {{- partial "stylesheet.html" (dict "name" "css/music-player.scss" "key" "music") -}}
-
-{{- end -}}
-
-{{- if partial "live2d-enabled.html" . -}}
-
-  {{- partial "stylesheet.html" (dict "name" "css/live2d-widget.scss" "key" "live2d") -}}
-
-{{- end -}}
-
-{{- if partial "effects-enabled.html" . -}}
-
-  {{- partial "stylesheet.html" (dict "name" "css/site-effects.scss" "key" "site-effects") -}}
 
 {{- end -}}
 

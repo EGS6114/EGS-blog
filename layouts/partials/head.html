@@ -32,7 +32,6 @@
 {{- $mouse := .Site.Params.mouse | default dict -}}
 <meta name="sakura-mouse-style" content="1" data-path="{{ default `/mouse/tuantuanma/` $mouse.path | relURL }}">
 {{- end -}}
-{{- partial "site-effects-config.html" . -}}
 <link rel="canonical" href="{{ .Permalink }}">
 <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ "sitemap.xml" | absURL }}">
 <link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ "index.xml" | absURL }}">
@@ -73,6 +72,5 @@
 <link rel="stylesheet" href="{{ "katex/katex.min.css" | relURL }}">
 {{- end -}}
 {{- partial "moments-script-meta.html" . -}}
-{{- partial "excalidraw-script-meta.html" . -}}
 {{- partial "gallery-post-script-meta.html" . -}}
 <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js" defer></script>
