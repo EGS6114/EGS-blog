@@ -18,7 +18,6 @@ export const MOUSE_STYLE_RULES = [
       '[role="button"]',
       '.mouse-pointer',
       '.music-btn',
-      '.live2d-tool',
     ].join(', '),
     hover: true,
     priority: 1,

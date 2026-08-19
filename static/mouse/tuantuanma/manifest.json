@@ -421,7 +421,7 @@
     },
     {
       "name": "tuantuanma-link",
-      "selector": "a, button, summary, label[for], select, [role=\"button\"], .mouse-pointer, .music-btn, .live2d-tool",
+      "selector": "a, button, summary, label[for], select, [role=\"button\"], .mouse-pointer, .music-btn",
       "hover": true,
       "priority": 1,
       "duration": 2067,

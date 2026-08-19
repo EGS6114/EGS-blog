@@ -96,7 +96,6 @@ function mountPage() {
   void initSearchPage().catch((err) => console.warn('[search]', err))
   void bootSignatureWidget().catch((err) => console.warn('[signature]', err))
   bindCopyYmlBtn()
-  scheduleLive2dInit()
   refreshHomeNavbar?.()
   refreshMobileNavbarCollapse?.()
   refreshDesktopNavbarCollapse?.()
@@ -110,5 +109,4 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', () => {
   bootstrapHomeCardsLoadMore()
   bootstrapWeeklyLoadMore()
-  scheduleLive2dInit()
 }, { once: true })
