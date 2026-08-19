@@ -1,4 +1,4 @@
-{{- $min := .Params.tocStartLevel | default 3 -}}
+{{- $min := .Params.tocStartLevel | default 2 -}}
 {{- $max := .Params.tocEndLevel | default 4 -}}
 {{- $headings := slice -}}
 {{- range findRESubmatch `<h([2-4]) id="([^"]+)"[^>]*>([\s\S]*?)</h[2-4]>` .Content -}}
