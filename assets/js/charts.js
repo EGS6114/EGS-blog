@@ -306,7 +306,115 @@ function bindChartResize(chart) {
   registerPageCleanup(() => window.removeEventListener('resize', onResize))
 }
 
+function initCategoryButtons() {
+  const postSection = document.getElementById('categories-post-section')
+  if (!postSection) return
+  const postItems = Array.from(document.querySelectorAll('.categories-post-item'))
+  const tagButtons = Array.from(document.querySelectorAll('.sakura-categories-page .sakura-tag-button[data-category]'))
+  if (!tagButtons.length) return
+ 
+  let currentCategory = ''
+ 
+  const setCategory = (categoryKey) => {
+    currentCategory = categoryKey || ''
+    const url = new URL(window.location.href)
+    if (currentCategory) url.searchParams.set('category', currentCategory)
+    else url.searchParams.delete('category')
+    preservePjaxHistoryState(url)
+ 
+    tagButtons.forEach((btn) => {
+      btn.classList.toggle('clicked', btn.dataset.category === currentCategory)
+    })
+ 
+    if (!currentCategory) {
+      postSection.hidden = true
+      postItems.forEach((el) => { el.hidden = true })
+      return
+    }
+ 
+    postSection.hidden = false
+    postItems.forEach((el) => {
+      el.hidden = !postMatchesCategory(el.dataset.categories, currentCategory)
+    })
+    updateFilteredPostCards(postItems)
+    initLazyImages(postSection)
+    refreshMobileCardsListPage()
+  }
+ 
+  const selectCategory = (categoryKey) => {
+    if (!categoryKey) return
+    setCategory(categoryKey)
+    postSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+  }
+ 
+  tagButtons.forEach((btn) => {
+    btn.addEventListener('click', () => selectCategory(btn.dataset.category || ''))
+  })
+ 
+  const initial = new URLSearchParams(window.location.search).get('category')
+  if (initial) setCategory(initial)
+}
+ 
+function initTagButtons() {
+  const postSection = document.getElementById('tags-post-section')
+  if (!postSection) return
+  const postItems = Array.from(document.querySelectorAll('.tags-post-item'))
+  const tagButtons = Array.from(document.querySelectorAll('.sakura-tags-page .sakura-tag-button[data-tag]'))
+  if (!tagButtons.length) return
+ 
+  let currentTag = ''
+ 
+  const resolveTagKey = (input) => {
+    if (!input) return ''
+    const normInput = normalizeCategory(input)
+    const btn = tagButtons.find((item) => normalizeCategory(item.dataset.tag) === normInput)
+    return btn ? (btn.dataset.tag || '') : input
+  }
+ 
+  const setTag = (tagKey) => {
+    currentTag = resolveTagKey(tagKey)
+    const url = new URL(window.location.href)
+    if (currentTag) url.searchParams.set('tag', currentTag)
+    else url.searchParams.delete('tag')
+    preservePjaxHistoryState(url)
+ 
+    tagButtons.forEach((btn) => {
+      btn.classList.toggle('clicked', normalizeCategory(btn.dataset.tag) === normalizeCategory(currentTag))
+    })
+ 
+    if (!currentTag) {
+      postSection.hidden = true
+      postItems.forEach((el) => { el.hidden = true })
+      return
+    }
+ 
+    postSection.hidden = false
+    postItems.forEach((el) => {
+      el.hidden = !postMatchesTag(el.dataset.tags, currentTag)
+    })
+    updateFilteredPostCards(postItems)
+    initLazyImages(postSection)
+    refreshMobileCardsListPage()
+  }
+ 
+  const selectTag = (tagKey) => {
+    if (!tagKey) return
+    setTag(tagKey)
+    postSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+  }
+ 
+  tagButtons.forEach((btn) => {
+    btn.addEventListener('click', () => selectTag(btn.dataset.tag || ''))
+  })
+ 
+  const initial = new URLSearchParams(window.location.search).get('tag')
+  if (initial) setTag(initial)
+}
+
 export async function initCharts() {
+  initCategoryButtons()
+  initTagButtons()
+
   const hasChart = document.getElementById('archives-chart')
     || document.getElementById('categories-chart')
     || document.getElementById('tags-chart')

@@ -1,0 +1,153 @@
+## 概述
+ 
+基于 [Hugo](https://gohugo.io/) 与主题 [Aiovtue](https://github.com/AIOVTUE/hugo-theme-aiovtue) 构建的纯静态个人博客，部署于 [Vercel](https://vercel.com/)。
+ 
+线上地址：[https://blog.egs.cc.cd/](https://blog.egs.cc.cd/)
+ 
+---
+ 
+## 特性一览
+ 
+| 功能          | 说明                                                                                   |
+| ----------- | ------------------------------------------------------------------------------------ |
+| 多布局首页       | 支持 `cards` / `list` / `timeline` 三种布局，桌面端与移动端独立配置                                    |
+| Hero 区域     | 全屏大图/视频轮播，支持一言 API 随机格言 + 打字机效果                                                      |
+| 评论系统        | 内置 [Twikoo](https://twikoo.js.org/) / [Waline](https://waline.js.org/) 双 provider 切换 |
+| 追番页         | 构建时自动从 Bilibili 拉取追番数据                                                               |
+| 音乐播放器       | APlayer + Meting.js，支持网易云歌单/歌曲                                                       |
+| 画廊 & 灯箱     | 相册页 + Lightbox 大图浏览                                                                  |
+| 动态（Moments） | 类社交动态时间线，支持 memos / cards 两种布局                                                       |
+| 全文搜索        | 基于 Fuse.js 的客户端搜索                                                                    |
+| PJAX        | 站内无刷新跳转，平滑过渡                                                                         |
+| 暗黑模式        | 自动/手动切换，View Transitions API                                                         |
+| 手写签名        | SVG 动态手写签名动画                                                                         |
+| ECharts 图表  | 归档热力图 + 标签统计图                                                                        |
+| KaTeX 数学公式  | 构建时渲染，支持行内 `$...$` 与块级 `$$...$$`                                                     |
+| 版权声明        | CC 协议自动生成                                                                            |
+| RSS         | 首页与文章栏目自动输出 RSS                                                                      |
+ 
+---
+ 
+## 项目结构
+
+```bash
+EGS-blog/  
+├── archetypes/ # Hugo 内容模板  
+├── assets/  
+│ ├── css/ # SCSS / CSS 样式源文件  
+│ └── js/ # JavaScript 模块  
+├── content/ # 站点内容（Markdown）  
+│ ├── posts/ # 博客文章  
+│ ├── moments/ # 动态  
+│ ├── gallery/ # 相册  
+│ ├── about.md # 关于页  
+│ ├── links.md # 友链页  
+│ └── bangumi.md # 追番页  
+├── data/ # 数据文件  
+│ ├── bangumi.json # Bilibili 追番数据（构建时自动生成）  
+│ └── friends.json # 友链数据  
+├── layouts/ # Hugo 模板（覆盖主题模板）  
+│ ├── partials/ # 局部模板  
+│ ├── _default/ # 默认模板  
+│ └── _markup/ # Markdown 渲染钩子  
+├── scripts/ # 构建脚本  
+│ ├── build.mjs # 主构建脚本  
+│ └── fetch-bangumi.mjs # Bilibili 追番数据拉取  
+├── static/ # 静态资源（字体、图片、鼠标指针等）  
+├── hugo.yaml # Hugo 站点配置（核心）  
+├── package.json # Node.js 依赖与脚本  
+└── vercel.json # Vercel 部署配置
+```
+
+## 快速开始
+
+#### 前置要求
+
+- [Hugo Extended](https://gohugo.io/installation/) ≥ 0.163.3
+- [Node.js](https://nodejs.org/) ≥ 18（用于构建脚本与资源压缩）
+- [pnpm](https://pnpm.io/)或 npm
+
+### 安装
+
+```bash
+# 克隆仓库
+git clone https://github.com/EGS6114/EGS-blog.git
+cd EGS-blog
+
+# 安装依赖
+npm install
+
+# 预览
+npm run dev
+
+# 构建
+npm run build
+```
+
+## 站点配置
+
+所有配置集中在 hugo.yaml，主要配置分区：
+
+| 配置项                | 说明                           |
+| ------------------ | ---------------------------- |
+| `baseURL`          | 站点正式访问地址                     |
+| `params.hero`      | 首页 Hero 头图/视频/一言             |
+| `params.home`      | 首页布局与分页                      |
+| `params.comment`   | 评论 provider（waline / twikoo） |
+| `params.bangumi`   | 追番页 Bilibili UID             |
+| `params.music`     | 音乐播放器歌单配置                    |
+| `params.navbar`    | 顶栏标题与滚动行为                    |
+| `params.menu.main` | 导航菜单                         |
+| `params.social`    | 社交图标链接                       |
+| `params.mouse`     | 团团猫鼠标指针                      |
+| `params.pjax`      | PJAX 无刷新跳转                   |
+
+详细参数说明见 hugo.yaml 中的注释。
+
+## 新建文章
+
+在 `content/posts/` 下创建 Markdown 文件：
+
+```
+hugo new posts/my-post.md
+```
+
+#### Front Matter 示例
+
+```
+---
+title: "文章标题"
+date: 2026-08-15
+cover: "/hero/hero-1.jpg"   # 封面图（可选，不写则使用 defaultCover）
+categories: [""]
+tags: ["", ""]
+math: true                   # 启用 KaTeX 数学公式
+comment: true                # 开启评论区（默认开启）
+---
+```
+
+### 其他内容类型
+
+| 类型  | 目录                         | 说明           |
+| --- | -------------------------- | ------------ |
+| 动态  | `content/moments/*.md`     | 仅需 `date` 字段 |
+| 相册  | `content/gallery/<album>/` | 页面包结构，图片放同目录 |
+| 友链  | `data/friends.json`        | JSON 格式友链数据  |
+
+## 部署
+
+#### Vercel（推荐）
+
+项目已内置 vercel.json，直接连接 GitHub 仓库即可自动部署：
+
+1. 在 [Vercel Dashboard](https://vercel.com/dashboard) 导入仓库
+2. Framework Preset 选择 **Hugo**
+3. 无需额外配置，构建命令与输出目录已由 `vercel.json` 指定
+
+#### 其他平台
+
+`scripts/build.mjs` 已兼容以下平台的环境变量自动检测：
+
+- **Cloudflare Pages** — 检测 `CF_PAGES=1`，自动下载 Hugo 二进制
+- **Render** — 检测 `RENDER=true`
+- **GitHub Pages** — 通过 `GITHUB_PAGES_URL` 环境变量注入 baseURL
